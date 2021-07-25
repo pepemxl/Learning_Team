@@ -3,6 +3,13 @@
 Created on Sun Jul 18 21:28:03 2021
 
 @author: Pepe
+
+
+TODO:
+    - Crear funcion insert de un usuario a la base de datos
+    - Crear funcion que pueda borrar usuarios con (nombre, apellido)
+    - Crear funcion que pueda leer todos los usuarios con cierto nombre
+    - Crear funcion que pueda leer todos los usuarios con cierto apellido
 """
 
 import ejemplo_sqlachemy_db as db
