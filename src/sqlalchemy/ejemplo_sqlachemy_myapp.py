@@ -25,8 +25,12 @@ def insert_user(db, nombre, apellido):
     db.session.commit()
 
 def delete_user(db, nombre, apellido):
-    db.session.query(CTablaEjemplo).filter_by(nombre=nombre, apellido=apellido).delete()
-    db.session.commit()
+    try:
+        db.session.query(CTablaEjemplo).filter_by(nombre=nombre, apellido=apellido).delete()
+        db.session.commit()
+    except:
+        print('An exception occurred while deleting user')
+
 
 def read_users_by_name(db, name):
     users = db.session.query(CTablaEjemplo).filter_by(nombre=name).all()
@@ -55,4 +59,4 @@ if __name__=='__main__':
     print(users)
     users = read_users_by_last_name(db, 'Perez')
     print(users)
-    print(type(users[0]))
+    delete_user(db, 'George', 'Pratt')
