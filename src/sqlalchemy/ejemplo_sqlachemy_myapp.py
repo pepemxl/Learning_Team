@@ -14,41 +14,27 @@ TODO:
 
 import ejemplo_sqlachemy_db as db
 from ejemplo_sqlalchemy_data_model import CTablaEjemplo
-#from sqlalchemy import select, update, delete, values
+from sqlalchemy import and_
 
 def crea_base_de_datos(Base, engine):
     Base.metadata.create_all(engine)
 
-def inserta_usuario(nombre, apellido):
+def insert_user(db, nombre, apellido):
     usuario = CTablaEjemplo(nombre, apellido)
     db.session.add(usuario)
     db.session.commit()
 
-def borra_usario(nombre, apellido):
-    #usuario = CTablaEjemplo.query.filter_by(nombre=nombre_, apellido=apellido_).first()
-    #query = 'select * from ejemplo01 where nombre=\"' + nombre + '\" and apellido=\"' + apellido + '\"'
-    query = 'delete from ejemplo01 where nombre=\"' + nombre + '\" and apellido=\"' + apellido + '\"'
-    db.engine.execute(query)
-    #db.session.delete(usuario)
-    #db.session.commit()
+def delete_user(db, nombre, apellido):
+    db.session.query(CTablaEjemplo).filter_by(nombre=nombre, apellido=apellido).delete()
+    db.session.commit()
 
-def lee_usuarios_x_nombre(nombre):
-    query = 'select * from ejemplo01 where nombre=\"' + nombre + '\"'
-    res = db.engine.execute(query)
-    usuarios = []
-    for record in res:
-        usuarios.append(record)
-        print(record)
-    return usuarios
+def read_users_by_name(db, name):
+    users = db.session.query(CTablaEjemplo).filter_by(nombre=name).all()
+    return users
 
-def lee_usuarios_x_apellido(apellido):
-    query = 'select * from ejemplo01 where apellido=\"' + apellido + '\"'
-    res = db.engine.execute(query)
-    usuarios = []
-    for record in res:
-        usuarios.append(record)
-        print(record)
-    return usuarios    
+def read_users_by_last_name(db, last_name):
+    users = db.session.query(CTablaEjemplo).filter_by(apellido=last_name).all()
+    return users
 
 def test():
     persona1 = CTablaEjemplo('Ernesto', 'Trujillo')
@@ -61,9 +47,12 @@ if __name__=='__main__':
     engine = db.engine
     crea_base_de_datos(Base, engine)
     #test()
-    #inserta_usuario('Pedro', 'Perez')
-    #inserta_usuario('Jorge', 'X')
-    #inserta_usuario('Juan', 'Y')
-    #borra_usario('Jorge', 'X')
-    lee_usuarios_x_nombre('Pedro')
-    lee_usuarios_x_apellido('Trujillo')
+    #insert_user(db, 'Rosco', 'Perez')
+    #insert_user(db, 'Rosco', 'Lopez')
+    #insert_user(db, 'Rosco', 'Ramirez')
+    #delete_user(db, 'Rosco', 'Lopez')
+    users = read_users_by_name(db, 'Rosco')
+    print(users)
+    users = read_users_by_last_name(db, 'Perez')
+    print(users)
+    print(type(users[0]))
