@@ -8,11 +8,13 @@ Created on Sun Jul 18 21:20:10 2021
 
 import ejemplo_sqlachemy_db
 
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, MetaData
 
+meta = MetaData()
 
 class CTablaEjemplo(ejemplo_sqlachemy_db.Base):
     __tablename__ = 'ejemplo01'
+    #meta
     id = Column(Integer, primary_key=True)
     nombre = Column(String, nullable=False)
     apellido = Column(String, nullable=False)
@@ -25,4 +27,4 @@ class CTablaEjemplo(ejemplo_sqlachemy_db.Base):
         return "TableEjemplo({0}, {1})".format(self.nombre,self.apellido)
 
     def __str__(self):
-        return self.nombre+self.apellido
+        return self.nombre+" "+self.apellido
