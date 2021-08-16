@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  cpp_os_base:
+    build:
+      context: ./../
+      dockerfile: docker_base_images/os/Dockerfile
+    image: cpp_poco/ubuntu_base:1
+    container_name: ubuntu_base
+  cpp_cuda_os:
+    build:
+      context: ./../
+      dockerfile: docker_base_images/cuda/Dockerfile
+    image: cpp_poco/cuda_base:1
+    container_name: cuda_base
