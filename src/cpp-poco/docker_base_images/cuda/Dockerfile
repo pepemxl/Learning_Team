@@ -1,4 +1,4 @@
-FROM cpp_poco/ubuntu_base:1
+FROM cpp_poco/ubuntu_base:latest
 
 # Install CUDA SDK
 RUN wget -nv https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin \

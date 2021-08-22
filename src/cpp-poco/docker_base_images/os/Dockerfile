@@ -7,5 +7,5 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # Install C++ toolchain
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends gcc g++ make autoconf automake libtool gdb \
+    && apt-get -y install --no-install-recommends gcc g++ make cmake autoconf automake libtool gdb \
     && apt-get autoremove -y && apt-get clean -y
