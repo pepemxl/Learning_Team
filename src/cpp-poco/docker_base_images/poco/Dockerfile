@@ -14,5 +14,5 @@ RUN git clone -b master https://github.com/pocoproject/poco.git
 # Using Make
 WORKDIR /poco
 RUN ./configure
-RUN make -s -j4
-RUN make install
+#RUN make CDBG=-w -s -j4
+#RUN make install

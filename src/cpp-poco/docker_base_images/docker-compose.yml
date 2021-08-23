@@ -12,6 +12,8 @@ services:
       dockerfile: docker_base_images/cuda/Dockerfile
     image: cpp_poco/cuda_base:latest
     container_name: cuda_base
+    depends_on:
+      - cpp_os_base
     deploy:
       resources:
         reservations:
@@ -24,4 +26,6 @@ services:
       dockerfile: docker_base_images/poco/Dockerfile
     image: cpp_poco/poco_base:latest
     container_name: poco_base
+    depends_on:
+      - cpp_cuda_base
     
