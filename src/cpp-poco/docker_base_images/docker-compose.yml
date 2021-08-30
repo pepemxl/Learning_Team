@@ -28,4 +28,9 @@ services:
     container_name: poco_base
     depends_on:
       - cpp_cuda_base
-    
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: [gpu]
+            count: all
