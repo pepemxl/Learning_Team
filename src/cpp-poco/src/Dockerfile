@@ -8,3 +8,4 @@ WORKDIR /app/build
 
 RUN cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build .
+ENTRYPOINT ["/app/bin/Poco_example"]
