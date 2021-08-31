@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>My WEB</title>
+    </head>
+    <body>
+        <h1>Welcome to my web experiment</h1>
+        <div>
+            <p>Mi Contador: <span id="democounter"></span></p>
+        </div>
+        <div>
+            <button id="mibutton">mi funcion</button>
+        </div>
+        <div>
+            <ul id="demo">
+            </ul>
+            
+        </div>
+        <script>
+            function handleEvent(e) {
+                var ul = document.getElementById("demo");
+                var li = document.createElement("li");
+                li.appendChild(document.createTextNode(e.type+" "+e.target.status));
+                ul.appendChild(li);
+            }
+            function mifunction() {
+                var cnt = document.getElementById("democounter").innerHTML;
+                var new_cnt = 1;
+                if (cnt != undefined && cnt != null && !isNaN(cnt)) {
+                    new_cnt = parseInt(cnt, 10) + new_cnt;
+                }
+                if(isNaN(new_cnt)){
+                    document.getElementById("democounter").innerHTML = 1;
+                }else{
+                    document.getElementById("democounter").innerHTML = new_cnt;
+                }
+                let xhr = new XMLHttpRequest();
+                xhr.addEventListener('error', handleEvent);
+                try{
+                    //xhr.open('get', 'http://example-service/');
+                    xhr.open('get', 'http://localhost:5001/');
+                    xhr.send();
+                    xhr.onload = function() {
+                        console.log(xhr.response);
+                    };
+                    xhr.onerror = function() { 
+                        console.log("Error en xhr")
+                        /*var ul = document.getElementById("demo");
+                        var li = document.createElement("li");
+                        li.appendChild(document.createTextNode(xhr.status ));
+                        ul.appendChild(li);*/
+                    };
+                }catch(error){
+                    var ul = document.getElementById("demo");
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(xhr.response));
+                    ul.appendChild(li);
+                }
+            }
+            var submitBtn = document.querySelector('#mibutton');
+            submitBtn.addEventListener('click', mifunction);
+        </script>
+    </body>
+</html>

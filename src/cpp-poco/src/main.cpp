@@ -1,12 +1,12 @@
- #include "Poco/Timer.h"
- #include "Poco/Thread.h"
- #include "Poco/Stopwatch.h"
- #include <iostream>
+#include "Poco/Timer.h"
+#include "Poco/Thread.h"
+#include "Poco/Stopwatch.h"
+#include <iostream>
 
- using Poco::Timer;
- using Poco::TimerCallback;
- using Poco::Thread;
- using Poco::Stopwatch;
+using Poco::Timer;
+using Poco::TimerCallback;
+using Poco::Thread;
+using Poco::Stopwatch;
 
 class TimerExample{
 public:

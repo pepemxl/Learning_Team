@@ -32,7 +32,10 @@ include_directories(
     ${Poco_INCLUDE_DIRS} 
 )   
 
-link_directories(${CMAKE_BINARY_DIR}) 
+link_directories(${CMAKE_BINARY_DIR})
 
 add_executable(Poco_example main.cpp)
+#add_executable(01_byteorder_byteorder samples/01_byteorder/byteorder.cpp)
+
 target_link_libraries(Poco_example ${Poco_LIBRARIES})
+#target_link_libraries(01_byteorder_byteorder ${Poco_LIBRARIES})

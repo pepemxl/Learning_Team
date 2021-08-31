@@ -1,0 +1,39 @@
+version: '3.9'
+
+networks:
+  api:
+    external: true
+services:
+  example-service:
+    container_name: example_service
+    build: ./miapi
+    volumes:
+      - ./miapi:/usr/src/app # mount point
+    ports:
+      - 5001:80
+    networks: 
+      - api
+  website:
+    container_name: website
+    image: php:apache  # pulling image from DockerHub
+    volumes:
+      - ./miweb:/var/www/html # mount
+    ports:
+      - 5000:80  # host:container
+    depends_on:
+      - example-service  # website is not going to work 
+                             # unless example-service is running
+    networks: 
+      - api
+  website2:
+    container_name: website2
+    image: php:apache  # pulling image from DockerHub
+    volumes:
+      - ./miweb2:/var/www/html # mount
+    ports:
+      - 5002:80  # host:container
+    depends_on:
+      - example-service  # website is not going to work 
+                             # unless example-service is running
+    networks: 
+      - api
