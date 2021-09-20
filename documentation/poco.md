@@ -51,6 +51,50 @@ POCO based applications, using the built-in web server run on 75 MHz ARM9-based 
 
 Typical mid-range embedded platforms(64MB RAM, 64 MB Flask and 180 MHz ARM9) provide plenty or resources even for more complex applications.
 
+## Install Windows
+
+### VISUAL STUDIO
+
+POCO includes project and solution files for different Visual Studio versions.
+
+On Windows, run the buildwin.cmd script to build POCO using the Visual Studio project files.
+
+To build with Visual Studio 2019, from a Visual Studio 2019 Command Prompt, run:
+
+```bash
+P:\git\poco>buildwin.cmd 160
+```
+You can run buildwin.cmd without arguments to see available options.
+
+To omit some libraries from building, edit the components file and remove the lines corresponding to the specific libraries.
+
+Make sure to start the correct Visual Studio command prompt prior to starting buildwin.cmd, otherwise you will see linker errors. Specifically, when building the 64-bit libraries, run from a "x64 Native Tools Command Prompt".
+
+You will also need to set the INCLUDE and LIB environment variables to include the paths for any external dependencies like OpenSSL and MySQL, e.g.:
+
+
+```bash x86
+P:\git\poco>set INCLUDE=%INCLUDE%;C:\Program Files (x86)\OpenSSL-Win32\include
+P:\git\poco>set LIB=%LIB%;C:\Program Files (x86)\OpenSSL-Win32\lib
+P:\git\poco>set INCLUDE=%INCLUDE%;C:\Program Files\MySQL\MySQL Connector C++ 8.0\include
+P:\git\poco>set LIB=%LIB%;C:\Program Files\MySQL\MySQL Connector C++ 8.0\lib64
+P:\git\poco>set INCLUDE=%INCLUDE%;C:\Program Files\MySQL\Connector ODBC 8.0
+P:\git\poco>set LIB=%LIB%;C:\Program Files\MySQL\Connector ODBC 8.0
+P:\git\poco>set INCLUDE=%INCLUDE%;C:\Program Files\PostgreSQL\13\include
+P:\git\poco>set LIB=%LIB%;C:\Program Files\PostgreSQL\13\lib
+
+P:\git\poco>set INCLUDE=%INCLUDE%;C:\Program Files (x86)\MySQL\MySQL Connector C 6.1\include
+P:\git\poco>set LIB=%LIB%;C:\Program Files (x86)\MySQL\MySQL Connector C 6.1\lib
+
+
+P:\git\poco>buildwin 160 build shared both x64 nosamples notests
+```
+```bash x64
+P:\git\poco>set INCLUDE=%INCLUDE%;C:\Program Files\OpenSSL-Win64\include
+P:\git\poco>set LIB=%LIB%;C:\Program Files\OpenSSL-Win64\lib
+P:\git\poco>buildwin 160 build shared both x64 nosamples notests
+```
+
 ## Types and Byte Order
 - Fixed-Size Integer Types
 - Byte Order Conversions

@@ -11,11 +11,8 @@ RUN git clone -b master https://github.com/pocoproject/poco.git
 # Using CMake to build project
 WORKDIR /poco
 RUN mkdir cmake-build
-#RUN cd cmake-build
 WORKDIR /poco/cmake-build
-RUN cmake ..
-RUN cmake --build . --config Release
-RUN cmake --build . --target install
+RUN cmake .. && cmake --build . --config Release && cmake --build . --target install
 # Using Make
 ##WORKDIR /poco
 ##RUN ./configure

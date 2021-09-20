@@ -1,19 +1,44 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>My WEB</title>
+        <title>Learn how CORS works</title>
     </head>
     <body>
-        <h1>Welcome to my web experiment</h1>
-        <div>
-            <p>Mi Contador: <span id="democounter"></span></p>
-        </div>
-        <div>
-            <button id="mibutton">mi funcion</button>
-        </div>
-        <div>
-            <ul id="demo">
-            </ul>
-            
+        <div class="jumbotron text-center">
+            <h1>Ejemplo de uso de CORS</h1>
+            <div class="container p-3 my-3 border text-left">
+                <h3>Accediendo a recurso <span>http://localhost:5001/</span> usando <code>XMLHttpRequest</code></h3>
+                <p>Contador de clicks a request <span>http://localhost:5001/</span>: <span id="democounter"></span></p>
+                <button id="mibutton">Dar Click</button>
+                <ul id="demo">
+                </ul>
+            </div>
+            <div class="container p-3 my-3 border text-left">
+                <h3>Accediendo a recurso <span>http://example-service/</span> usando <code>XMLHttpRequest</code></h3>
+                <p>Contador de clicks a request <span>http://example-service/</span>: <span id="democounter2"></span></p>
+                <button id="mibutton2">Dar Click</button>
+                <ul id="demo2">
+                </ul>
+            </div>
+            <div class="container p-3 my-3 border text-left">
+                <h3>Accediendo a recurso <span>http://localhost:5001/miapi/</span> usando <code>XMLHttpRequest</code></h3>
+                <p>Contador de clicks a request <span>http://localhost:5001/miapi/</span>: <span id="democounter3"></span></p>
+                <button id="mibutton3">Dar Click</button>
+                <ul id="demo3">
+                </ul>
+            </div>
+            <div class="container p-3 my-3 border text-left">
+                <h3>Accediendo a recurso <span>http://example-service/miapi/</span> usando <code>XMLHttpRequest</code></h3>
+                <p>Contador de clicks a request <span>http://example-service/miapi/</span>: <span id="democounter4"></span></p>
+                <button id="mibutton4">Dar Click</button>
+                <ul id="demo4">
+                </ul>
+            </div>
+            <div class="container p-3 my-3 border text-left">
+                <h3>General Errors</h3>
+                <ul id="demo5">
+                </ul>
+            </div>
         </div>
         <script>
             function handleEvent(e) {
@@ -33,21 +58,28 @@
                 }else{
                     document.getElementById("democounter").innerHTML = new_cnt;
                 }
+                //const url = "http://example-service/";
+                const url = "http://localhost:5001/";
+                /*fetch(url)
+                .then( res => res.json() )
+                .then( data => console.log(data) );
+                */
                 let xhr = new XMLHttpRequest();
                 xhr.addEventListener('error', handleEvent);
                 try{
-                    //xhr.open('get', 'http://example-service/');
+                    //xhr.open('get', 'http://example-service:80/');
                     xhr.open('get', 'http://localhost:5001/');
                     xhr.send();
                     xhr.onload = function() {
                         console.log(xhr.response);
+                        console.log(xhr.response['data']);
                     };
                     xhr.onerror = function() { 
                         console.log("Error en xhr")
-                        /*var ul = document.getElementById("demo");
-                        var li = document.createElement("li");
-                        li.appendChild(document.createTextNode(xhr.status ));
-                        ul.appendChild(li);*/
+                        //var ul = document.getElementById("demo");
+                        //var li = document.createElement("li");
+                        //li.appendChild(document.createTextNode(xhr.status ));
+                        //ul.appendChild(li);
                     };
                 }catch(error){
                     var ul = document.getElementById("demo");
@@ -56,8 +88,163 @@
                     ul.appendChild(li);
                 }
             }
-            var submitBtn = document.querySelector('#mibutton');
-            submitBtn.addEventListener('click', mifunction);
+            function mifunction2() {
+                const url_mifunction2 = "http://example-service/";
+                var cnt = document.getElementById("democounter2").innerHTML;
+                var new_cnt = 1;
+                if (cnt != undefined && cnt != null && !isNaN(cnt)) {
+                    new_cnt = parseInt(cnt, 10) + new_cnt;
+                }
+                if(isNaN(new_cnt)){
+                    document.getElementById("democounter2").innerHTML = 1;
+                }else{
+                    document.getElementById("democounter2").innerHTML = new_cnt;
+                }
+                let xhr = new XMLHttpRequest();
+                xhr.addEventListener('error', handleEvent);
+                try{
+                    xhr.open('get', url_mifunction2);
+                    xhr.send();
+                    xhr.onload = function() {
+                        console.log(xhr.response);
+                        //console.log(xhr.response['data']);
+                    };
+                    xhr.onerror = function() { 
+                        console.log("Error en xhr");
+                    };
+                }catch(error){
+                    var ul = document.getElementById("demo");
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(xhr.response));
+                    ul.appendChild(li);
+                }
+            }
+            function mifunction3() {
+                const url = "http://localhost:5001/miapi/";
+                const label_id = "democounter3";
+                const ul_id = "demo3";
+                var cnt = document.getElementById(label_id).innerHTML;
+                var new_cnt = 1;
+                if (cnt != undefined && cnt != null && !isNaN(cnt)) {
+                    new_cnt = parseInt(cnt, 10) + new_cnt;
+                }
+                if(isNaN(new_cnt)){
+                    document.getElementById(label_id).innerHTML = 1;
+                }else{
+                    document.getElementById(label_id).innerHTML = new_cnt;
+                }
+                let xhr = new XMLHttpRequest();
+                xhr.addEventListener('error', handleEvent);
+                try{
+                    xhr.open('get', url);
+                    xhr.send();
+                    xhr.onload = function() {
+                        var jsonResponse = JSON.parse(xhr.responseText);
+                        var ul = document.getElementById(ul_id);
+                        var li = document.createElement("li");
+                        console.log(item, jsonResponse['cors']);
+                        li.appendChild(document.createTextNode('cors:'+jsonResponse['cors']));
+                        ul.appendChild(li);
+                        for(var item in jsonResponse['data']) {
+                            var li = document.createElement("li");
+                            console.log(item, jsonResponse['data'][item]);
+                            li.appendChild(document.createTextNode(jsonResponse['data'][item]));
+                            ul.appendChild(li);
+                         }
+                    };
+                    xhr.onerror = function() { 
+                        console.log("Error en xhr");
+                    };
+                }catch(error){
+                    var ul = document.getElementById(ul_id);
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(xhr.response));
+                    ul.appendChild(li);
+                }
+            }
+            function mifunction4() {
+                const url = "http://example-service/miapi/";
+                const label_id = "democounter4";
+                const ul_id = "demo4";
+                var cnt = document.getElementById(label_id).innerHTML;
+                var new_cnt = 1;
+                if (cnt != undefined && cnt != null && !isNaN(cnt)) {
+                    new_cnt = parseInt(cnt, 10) + new_cnt;
+                }
+                if(isNaN(new_cnt)){
+                    document.getElementById(label_id).innerHTML = 1;
+                }else{
+                    document.getElementById(label_id).innerHTML = new_cnt;
+                }
+                let xhr = new XMLHttpRequest();
+                xhr.addEventListener('error', handleEvent);
+                try{
+                    xhr.open('get', url);
+                    xhr.send();
+                    xhr.onload = function() {
+                        var jsonResponse = JSON.parse(xhr.responseText);
+                        console.log(jsonResponse['cors']);
+                        var ul = document.getElementById(ul_id);
+                        var li = document.createElement("li");
+                        li.appendChild(document.createTextNode('cors:'+jsonResponse['cors']));
+                        ul.appendChild(li);
+                        for(var item in jsonResponse['data']) {
+                            var li = document.createElement("li");
+                            console.log(item, jsonResponse['data'][item]);
+                            li.appendChild(document.createTextNode(jsonResponse['data'][item]));
+                            ul.appendChild(li);
+                         }
+                    };
+                    xhr.onerror = function() { 
+                        console.log("chr.onerror: Error en xhr");
+                        var ul = document.getElementById('demo5');
+                        var li = document.createElement("li");
+                        if(errMsg != undefined && errMsg != null){
+                            li.appendChild(document.createTextNode(errMsg));
+                        }else{
+                            li.appendChild(document.createTextNode('xhr.onerror'));
+                        }
+                        ul.appendChild(li);
+                        var li2 = document.createElement("li");
+                        if(errMsg != undefined){
+                            li2.appendChild(document.createTextNode(errSrc));
+                        }
+                        ul.appendChild(li2);
+                    };
+                }catch(error){
+                    console.log("Error en xhr");
+                }
+            }
+            window.addEventListener('error', function(e) {
+                var ie = window.event || {};
+                var errMsg = e.message || ie.errorMessage || "404 error on " + window.location;
+                var errSrc = (e.filename || ie.errorUrl) + ': ' + (e.lineno || ie.errorLine);
+                var ul = document.getElementById('demo5');
+                var li = document.createElement("li");
+                li.appendChild(document.createTextNode(errMsg));
+                ul.appendChild(li);
+                var li2 = document.createElement("li");
+                li2.appendChild(document.createTextNode(errSrc));
+                ul.appendChild(li2);
+                console.log('Catched');
+                //mailme([errMsg, errSrc]);
+            }, true);
+            var submitBtn1 = document.querySelector('#mibutton');
+            submitBtn1.addEventListener('click', mifunction);
+            var submitBtn2 = document.querySelector('#mibutton2');
+            submitBtn2.addEventListener('click', mifunction2);
+            var submitBtn3 = document.querySelector('#mibutton3');
+            submitBtn3.addEventListener('click', mifunction3);
+            var submitBtn4 = document.querySelector('#mibutton4');
+            submitBtn4.addEventListener('click', mifunction4);
         </script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
     </body>
 </html>

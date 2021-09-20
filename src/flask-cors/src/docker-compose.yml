@@ -2,13 +2,17 @@ version: '3.9'
 
 networks:
   api:
-    external: true
+    external: false
+    name: api
 services:
   example-service:
+    image: website/miapi:latest
     container_name: example_service
     build: ./miapi
     volumes:
       - ./miapi:/usr/src/app # mount point
+    expose:
+      - "80"
     ports:
       - 5001:80
     networks: 
