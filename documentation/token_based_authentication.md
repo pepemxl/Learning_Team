@@ -9,9 +9,9 @@ De esta manera podemos trabajar con `single web applications`.
 
 La forma usual de hacer esto era solo usar sessiones y autenticación basada en cookies.
 
-## Ventajas y desvejas de cookies sobre JWT para autenticación.
+## Ventajas y desventajas de cookies sobre JWT para autenticación.
 
-## Configurando Base  de Datos
+## Configurando Base de Datos
 
 En este sentido puede ser una base de datos, MySQL o PostGre, por el momento no recomiendo usar una MSSQL debido a que el soporte de conexiones
 de linux a MSSQL no es bueno lo que ha provocado que los conectores disponibles tengan un bajo rendimiento.
