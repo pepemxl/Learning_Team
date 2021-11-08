@@ -1,0 +1,14 @@
+*.pyc
+app.db
+./tmp
+./build/*
+.idea
+env
+venv
+*.sublime*
+.vscode/*
+obj/*
+.vs/ExcelUploader/v16/.suo
+.vs/*
+.vs/
+logs/*
