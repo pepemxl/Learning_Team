@@ -40,6 +40,25 @@ set APP_SETTINGS="project.server.config.DevelopmentConfig"
 
 
 
+# OAuth2
+
+**OAuth2** es un framework de autorización que permite a aplicaciones como Facebook, GitHub, Google obtener acceso a cuentas de un usuario sobre un servicio **HTTP**. 
+
+Este framwork funciona delegando la autenticación del usuario al servicio que aloja una cuenta del usuario y autorizando a las aplicaciones de terceros(third-party) para acceder a la cuenta del usuario. OAuth 2 proporciona flujos de autorización para aplicaciones web y de escritorio, así como para dispositivos móviles. 
+
+Esto permite a los usuarios compartir información de su cuenta con otras cuentas sin realmente compartir su `username` y `password`. 
+
+
+
+## Roles en OAuth
+
+- Resource Owner: El el propietario/usuario que autoriza a una aplicación acceso a su cuenta. Está aplicación puede contar con cierto alcance definido por el ususario.
+- Client: El cliente aqui es la aplicación que desea acceso a la cuenta del usuario, el usuario debe autorizar este acceso mediante una API.
+- Resource Server: El servidor de recursos protegidos.
+- Authorization Server: El servidor de autorización  que verifica la identidad del usuario, y después emite tokens de acceso. Es decir, un servicio API.
+
+
+
 
 
 

@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  flask-app:
+    context: ./app
+    build: ./app/Dockerfile
+    image: flask_app_cookies
+    container_name: my-flask-app-cookies
+    ports:
+      - 5000:5000
