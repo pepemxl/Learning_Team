@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  flask-app-cookies:
+    build: ./app
+    image: learning_team/flask_app_cookies:latest
+    container_name: my-flask-app-cookies
+    ports:
+      - 5000:5000
+    volumes:
+      - ./app:/app # Temporal NOT use in production
