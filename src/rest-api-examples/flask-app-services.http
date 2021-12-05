@@ -1,0 +1,16 @@
+### GET /
+GET http://localhost:5000
+
+### 
+GET http://localhost:5000/api/v1/query1/usuario2asdfasdf
+
+###
+GET http://localhost:5000/api/v1/query1
+User-Agent: python-requests/2.22.0
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 20
+Content-Type: application/json
+
+b'{"a_key": "a_value"}'

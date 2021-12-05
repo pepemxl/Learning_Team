@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  flask-app-services:
+    build: ./app
+    image: learning_team/flask_app_services:latest
+    container_name: my-flask-app-services
+    ports:
+      - 5000:5000
+    volumes:
+      - ./app:/app # Temporal NOT use in production
