@@ -6,4 +6,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World in Container!'
+    return 'Hello World in Example 01 Container!'

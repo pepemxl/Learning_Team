@@ -1,2 +1,2 @@
 @ECHO OFF
-docker exec -it my-flask-app "/bin/sh"
+docker exec -it docker-example-01 "/bin/sh"
