@@ -133,4 +133,5 @@ src/sqlalchemy/ejemplo_neto.sqlite
 
 # airflow
 src/airflow/logs/*
-src/airflow/plugins/*
+src/airflow/plugins/
+*.DS_STORE
