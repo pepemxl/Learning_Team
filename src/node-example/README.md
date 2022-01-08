@@ -22,7 +22,7 @@ En principio Node.js nos permite manejar miles de conexiones concurrentes con un
 
 # Primer Ejemplo de Node
 
-posiblemente la manera m&aacute;s sencilla de crear un servidor http, es usando node con el siguiente script:
+Posiblemente la manera m&aacute;s sencilla de crear un servidor http, es usando node con el siguiente script:
 
 Usaremos el modulo `http` y su funci&oacute;n `createServer` para crear un peque&ntilde;o servidor.
 
