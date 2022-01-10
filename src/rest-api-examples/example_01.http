@@ -1,0 +1,19 @@
+# Ejemplos de GET
+GET https://example.com/comments/1 HTTP/1.1
+
+### Separados por #
+
+GET https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+###
+
+POST https://example.com/comments HTTP/1.1
+
+###
+
+POST https://example.com/comments HTTP/1.1
+content-type: application/json
+{
+    "name": "sample",
+    "time": "Wed, 7 Nov 2021 18:27:50 GMT"
+}
+###

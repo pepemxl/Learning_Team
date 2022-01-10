@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  example_02:
+    build: 
+      context: ./flask-app
+      dockerfile: ./Dockerfile
+    image: docker/example_02:latest
+    container_name: docker-example-02
+    ports:
+      - 8080:5000
+# docker run -p 8080:5000 --rm --name docker-example-02 docker/example_02:latest
+# build       Build or rebuild services
+# docker-compose build
+# up          Create and start containers
+# docker-compose up
+# down        Stop and remove containers, networks
+# docker-compose down
