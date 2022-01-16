@@ -24,9 +24,9 @@ Por ejemplo para un proyecto de Go donde utilizamos distintos proveedores una es
 ```
 .
 ├── Dockerfile
-├── Makefile
+├── Makefile                                              <-- Makefile for GO
 ├── README.md
-├── app                                                   <-- Service/Provider package
+├── app                                                   <-- Service/Provider package/API
 │·· ├── grpc                                              <-- GRPC Server Package
 │·· │·· └── server.go
 │·· ├── impls                                             <-- Implementations
@@ -59,8 +59,8 @@ Por ejemplo para un proyecto de Go donde utilizamos distintos proveedores una es
 ├── config                                                <-- Source config files for each kind of environment
 │·· ├── dev.json
 │·· ├── local.json
-│·· ├── prod.json
-│·· └── staging.json
+│·· ├── staging.json
+│·· └── prod.json
 ├── go.mod
 ├── go.sum
 ├── grpc-client                                           <-- GRPC client "local test"
