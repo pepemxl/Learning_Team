@@ -1,2 +1,2 @@
 @ECHO OFF
-docker exec -it docker-example-02 "/bin/sh"
+docker exec -it docker-container-example-02 "/bin/sh"
