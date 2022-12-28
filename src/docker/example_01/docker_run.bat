@@ -7,4 +7,6 @@ REM --publish , -p Publish a container's port(s) to the host  <host_port>:<conta
 REM --rm Automatically remove the container when it exits
 REM --volume , -v Bind mount a volume
 REM --workdir , -w Working directory inside the container
-docker run -p 8080:5000 --rm --name docker-example-01 docker/example_01:latest
+REM Use this version when container has not been created
+REM If container exist use docker_start.bat
+docker run -p 8080:5000 --rm --name docker-example-01-02 docker/example_01:latest
