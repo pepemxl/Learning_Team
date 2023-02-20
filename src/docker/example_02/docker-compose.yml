@@ -6,7 +6,7 @@ services:
       context: ./flask-app
       dockerfile: ./Dockerfile
     image: docker/example_02:latest
-    container_name: docker-example-02
+    container_name: docker-container-example-02
     ports:
       - 8080:5000
 # docker run -p 8080:5000 --rm --name docker-example-02 docker/example_02:latest
