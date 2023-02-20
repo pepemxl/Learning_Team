@@ -110,6 +110,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+src/*/.env
 
 # Spyder project settings
 .spyderproject
@@ -135,3 +136,6 @@ src/sqlalchemy/ejemplo_neto.sqlite
 src/airflow/logs/*
 src/airflow/plugins/
 *.DS_STORE
+
+# Temporal files
+temp/*
