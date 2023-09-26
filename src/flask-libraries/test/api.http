@@ -1,0 +1,21 @@
+
+### 
+http://localhost:5000
+
+### set cookie
+
+http://localhost:5000/setcookie
+
+### get cookie
+
+http://localhost:5000/getcookie
+
+### set cookie2
+
+http://localhost:5000/setcookie2
+
+### get cookie2
+
+http://localhost:5000/getcookie2
+
+

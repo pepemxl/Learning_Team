@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loaded Libraries</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center">List of {{ total }} Loaded Libraries</h1>
+    <!--<ul>
+        {% for library, file_path in loaded_libraries %}
+            <li>{{ library }} - {{ file_path }}</li>
+        {% endfor %}
+    </ul>-->
+    <table>
+        <tr>
+            <th>Library</th>
+            <th>File Path</th>
+        </tr>
+        {% for library, file_path in loaded_libraries %}
+            <tr>
+                <td>{{ library }}</td>
+                <td>{{ file_path }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
