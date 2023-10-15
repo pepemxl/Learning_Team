@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Libraries/Modules Test</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center">List of {{ total }} Loaded Libraries</h1>
+    <div align="center">
+        <table>
+            <tr>
+                <th>Test</th>
+                <th>Link</th>
+            </tr>
+            {% for route, description in list_routes %}
+                <tr>
+                    <td>{{ description }}</td>
+                    <td><a href={{ url_for(route) }}>link</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div>
+        <p>
+            sys.modules:
+            This is a dictionary that maps module names to modules which have already been loaded. 
+            This can be manipulated to force reloading of modules and other tricks. 
+            However, replacing the dictionary will not necessarily work as expected and deleting 
+            essential items from the dictionary may cause Python to fail. If you want to iterate 
+            over this global dictionary always use <code>sys.modules.copy()</code> or <code>tuple(sys.modules)</code> to avoid 
+            exceptions as its size may change during iteration as a side effect of code or activity in other threads.
+        </p>
+    </div>
+</body>
+</html>

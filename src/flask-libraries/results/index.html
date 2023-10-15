@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:5000/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Libraries/Modules Test</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center">List of  Loaded Libraries</h1>
+    <div align="center">
+        <table>
+            <tbody><tr>
+                <th>Test</th>
+                <th>Link</th>
+            </tr>
+            
+                <tr>
+                    <td>All modules</td>
+                    <td><a href="http://localhost:5000/all_libraries">link</a></td>
+                </tr>
+            
+                <tr>
+                    <td>Modules with attribute __file__</td>
+                    <td><a href="http://localhost:5000/libraries_with_file">link</a></td>
+                </tr>
+            
+                <tr>
+                    <td>User defined libraries</td>
+                    <td><a href="http://localhost:5000/user_defined_libraries">link</a></td>
+                </tr>
+            
+                <tr>
+                    <td>Add library numpy and recompute libraries</td>
+                    <td><a href="http://localhost:5000/add_numpy">link</a></td>
+                </tr>
+            
+                <tr>
+                    <td>Current import libraries</td>
+                    <td><a href="http://localhost:5000/current_imports">link</a></td>
+                </tr>
+            
+        </tbody></table>
+    </div>
+    <div>
+        <p>
+            sys.modules:
+            This is a dictionary that maps module names to modules which have already been loaded. 
+            This can be manipulated to force reloading of modules and other tricks. 
+            However, replacing the dictionary will not necessarily work as expected and deleting 
+            essential items from the dictionary may cause Python to fail. If you want to iterate 
+            over this global dictionary always use <code>sys.modules.copy()</code> or <code>tuple(sys.modules)</code> to avoid 
+            exceptions as its size may change during iteration as a side effect of code or activity in other threads.
+        </p>
+    </div>
+
+</body></html>

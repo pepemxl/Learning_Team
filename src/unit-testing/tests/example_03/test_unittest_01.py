@@ -4,7 +4,7 @@ import math
 
 
 class test_class(unittest.TestCase):
-    def setUp(self):        
+    def setUp(self):
         self.num_a = 9
         self.num_b = 16
         self.num_c = 25

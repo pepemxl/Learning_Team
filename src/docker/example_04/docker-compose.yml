@@ -1,0 +1,23 @@
+version: "3.2"
+services:
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    networks:
+      - db_nw
+    ports:
+      - "27017:27017"
+    volumes:
+      - type: volume
+        source: db_data
+        target: /data/db
+    command: --wiredTigerCacheSizeGB 4
+
+networks:
+  db_nw:
+    external:
+      name: da_network
+
+volumes:
+  db_data:
