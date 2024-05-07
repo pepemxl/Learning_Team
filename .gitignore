@@ -141,3 +141,5 @@ src/airflow/plugins/
 
 # Temporal files
 temp/*
+src/**/node_modules
+src/**/.next

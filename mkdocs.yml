@@ -1,6 +1,8 @@
 site_name: Learning Team Notes
 nav:
   - Home: 'index.md'
+  - Docker:
+    - Intro: 'docker/intro.md'
 plugins:
   - search
   - mermaid2
