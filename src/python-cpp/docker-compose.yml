@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  cpp-python-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - USER_ID=${UID:-1000}
+    working_dir: /app
+    user: "${UID:-1000}:${GID:-1000}"
