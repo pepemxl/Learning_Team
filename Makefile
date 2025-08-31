@@ -1,6 +1,10 @@
 PY := python3.10
 VENV := venv
 REPONAME=$(basename $(pwd))
+PYTHON_VERSION = 3.10
+
+DOCKER=docker
+DOCKER_COMPOSE = docker-compose
 
 .PHONY: help
 help:
@@ -40,8 +44,8 @@ clean_cache: ${VENV}
 
 ############# Docs ############
 DOCKERFILE_DIR_DOCS := ./src/containers/docs
-IMAGE_NAME_DOCS := asyncio-docs
-CONTAINER_NAME_DOCS := asyncio-docs
+IMAGE_NAME_DOCS := learning-team-docs
+CONTAINER_NAME_DOCS := learning-team-docs
 PORT_DOCS := 8080
 
 # Construye la imagen Docker usando el Dockerfile en /src/containers/docs/
