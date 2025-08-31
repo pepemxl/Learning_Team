@@ -1,0 +1,7 @@
+mkdocs[i18n]==1.6.1
+mkdocs-glightbox
+mkdocs-material
+mkdocs-mermaid2-plugin
+mkdocs-minify-plugin
+python-markdown-math
+mkdocs-redirects
