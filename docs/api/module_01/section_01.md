@@ -16,7 +16,7 @@ Hay muchas guías para escribir REST APIs, nosotros nos basaremos en las guías 
 
 ## Como crearemos nuestras APIs?
 
-Hay muchas maneras de crear APIs, que depende de la tecnología y los frameworks que estes utilizando,  lo usual es que durante el desarrollo de proyectos pequeños usemos un framework, y conforme se vaya necesitando vamos agregando endpoints, con sus respectivas logicas.
+Hay muchas maneras de crear APIs, que depende de la tecnología y los frameworks que estes utilizando,  lo usual es que durante el desarrollo de proyectos pequeños usemos un framework como podría ser django, angular, spring, etc... y conforme se vaya necesitando vamos agregando endpoints, con sus respectivas logicas.
 
 Sin embargo cuando trabajos en sistemas que estan escalados esto se convierte en una mala practica de desarollo que es muy dificil de mantener.
 
@@ -81,7 +81,7 @@ paths:
 ```mermaid
 
 graph TD;
-    startNode[Definir Especificación OpenAPI Creamos el YAML] --> B[Validamos la Especificación con herramientas de OpenAPI]
+    startNode["Definir Especificación OpenAPI"] -->|Creamos el YAML| B["Validamos la Especificación con herramientas de OpenAPI"]
     B -- Válida --> C[Generamos Código con OpenAPI Generator]
     B -- Inválida --> D[Corregir Errores y Revalidar]
     C --> E[Configurar Servidor]
