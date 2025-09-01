@@ -132,12 +132,13 @@ response = request.execute()
 print(response)
 ```
 
-#### Deberás tomar en cuenta que:
+**Deberemos tomar en cuenta que**
 
 - Para operaciones públicas (como buscar videos), una **API Key** es suficiente.
 - Para operaciones privadas (como gestionar listas de reproducción), necesitas **OAuth 2.0**.
 
 #### Documentación oficial
-   - La documentación completa de la API de YouTube está disponible en: [YouTube Data API v3 Documentation](https://developers.google.com/youtube/v3).
+
+- La documentación completa de la API de YouTube está disponible en: [YouTube Data API v3 Documentation](https://developers.google.com/youtube/v3).
 
 
