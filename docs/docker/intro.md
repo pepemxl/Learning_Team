@@ -9,29 +9,57 @@ La tecnología Docker utiliza el kernel de Linux y sus funciones, como los grupo
 Alguno de los componentes clásicos de docker son:
 
 - **Base images** son imagenes que no tienen imagen padre, usualmente son OS como Ubuntu o Debian.
-- **Images** - Los blueprints de nuestra aplicación que forman la base de los contenedores. 
-- **Containers** - Created from Docker images and run the actual application. We create a container using docker run which we did using the busybox image that we downloaded. A list of running containers can be seen using the docker ps command.
-- **Docker Daemon** - The background service running on the host that manages building, running and distributing Docker containers. The daemon is the process that runs in the operating system which clients talk to.
-- **Docker Client** - The command line tool that allows the user to interact with the daemon. More generally, there can be other forms of clients too - such as Kitematic which provide a GUI to the users.
-- **Docker Hub** - A registry of Docker images can in the machine, local, or remote in cloud environment. You can think of the registry as a directory of all available Docker images, usually associated with an artifactory. During development is usual to host their own Docker registries and can use them for pulling images.
+- **Images** Los blueprints de nuestra aplicación que forman la base de los contenedores. 
+- **Containers** Creados apartir de las imagenes de Docker donde se corren las aplicaciones. Creamos un contenedor usando `docker run`.
+- **Docker Daemon** Un background service que maneja los builds.
+- **Docker Client** Una herramienta de linea de comando que nos permite interactuar con Docker.
+- **Docker Hub** -  Un registro de imagenes de docker. 
 
-## Isolated Resources
+## Recursos Aislados
 
-The containers that Docker builds are isolated with respect to eight aspects:
-1. PID namespace—Process identifiers and capabilities
-2. UTS namespace—Host and domain name
-3. MNT namespace—File system access and structure
-4. IPC namespace—Process communication over shared memory
-5. NET namespace—Network access and structure
-6. USR namespace—User names and identifiers
-7. chroot()—Controls the location of the file system root
-8. cgroups—Resource protection
+Los contenedores que Docker crea son aislados respecto a:
 
-## Usual commands and examples
+1. `PID` namespace Process identifiers and capabilities
+2. `UTS` namespace Host and domain name
+3. `MNT` namespace File system access and structure
+4. `IPC` namespace Process communication over shared memory
+5. `NET` namespace Network access and structure
+6. `USR` namespace User names and identifiers
+7. `chroot()` Controls the location of the file system root
+8. `cgroups` Resource protection
 
-Given a [Dockerfile](example_01/flask-app/Dockerfile) and an [application](example_01/flask-app/app.py) we can test the next common commands in docker:
+## Comandos usuales
 
-- `docker build -t docker:example_01` [example](example_01/docker_build.bat)
+```yaml title=" Example in src/docker/example_01/flash-app/Dockerfile"
+FROM python:3.7-alpine
+# The FLASK_APP environment variable is the name of the module to import at flask run
+ENV FLASK_APP app.py
+# "development" is equal to "debug mode", the server will automatically reload if code changes
+ENV FLASK_ENV development
+# make the server publicly available simply by adding --host=0.0.0.0 to the command line
+ENV FLASK_RUN_HOST 0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+WORKDIR /app
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+COPY . . 
+EXPOSE 5000
+
+CMD [ "flask", "run" ]
+```
+
+```yaml title="src/docker/example_01/flask-app/app.py"
+from flask import Flask
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello_world():
+    return 'Hello World in Example 01 Container!'
+```
+
+
+- `docker build -t docker:example_01`  # example_01/docker_build.bat
     - `--tag , -t 		Name and optionally a tag in the 'name:tag' format`
 - `docker ps` to list containers running
 - `docker images` to list images locally available.
@@ -41,69 +69,207 @@ Given a [Dockerfile](example_01/flask-app/Dockerfile) and an [application](examp
 - `--rm` option tells Docker to remove the intermediate images.
 
 
-## Base Image Container Creation
+## Creación de la imagen base
 
-The first step in building a container is actually creating the container image.
-
-To build an image, we need to run the docker build command, and tell it which base image to use and which additional packages to install. This is done by creating a Dockerfile. 
+El primer paso es construir un contenedor donde le indicamos cuales son los paquetes que necesitará.
 
 ```docker
 FROM ubuntu
 RUN apt-get update && apt-get install gcc git -y
 ```
 
-The corresponding image can be created with
+Para crear la imagen basta correr:
 
-```bash
+```bash title="Crear una imagen"
 docker build .
 ```
-The `.` tells Docker to look for the Dockerfile in the current working directory.
 
-This command will create a new container based on the latest stable image of Ubuntu and install git and gcc within that container `-y` automatically replies yes to any confirmation messages displayed by `apt-get`. 
+El `.` le dice a Docker buscar en el directorio actual por un Dockerile.
 
 ## Data
 
-By default all files created inside a container are stored on a writable container layer. 
+Por defecto todos los archivos creados en un contenedor son guardados en una capa contenedor escribible (writable layer).
 
-This means that:
+Lo cual quiere decir que esta data desaparece al terminar el contenedor.
 
-- The **data doesn’t persist when that container no longer exists**, and it can be difficult to get the data out of the container if another process needs it.
-- A container’s **writable layer is tightly coupled to the host machine** where the container is running. You can’t easily move the data somewhere else.
-Writing into a **container’s writable layer requires a storage driver to manage the filesystem**. The storage driver provides a union filesystem, using the Linux kernel. This extra abstraction reduces performance as compared to using data volumes, which write directly to the host filesystem.
+Escriabir en una capa requiere un driver de manejo de datos, lo cual hace un tanto lenta la escritura/lectura de datos, por lo cual es recomendable agregar un volumen que utilizará directamente el filesystem del host.
 
-- Docker has two options for containers to store files on the host machine, so that the files are persisted even after the container stops: 
-    
-    1. volumes, and 
-    2. bind mounts.
 
-- Docker also supports containers storing files in-memory on the host machine. 
+Docker nos da dos opciones:
 
-    - If you’re running Docker on Linux, tmpfs mount is used to store files in the host’s system memory. 
-    - If you’re running Docker on Windows, named pipe is used to store files in the host’s system memory.
+1. volumes y 
+2. bind mounts.
 
 ### Volumes
 
-Docker containers are used to run applications in an isolated environment. All the changes inside the container are lost when the container stops. If we want to keep data between runs, Docker volumes and bind mounts can help. 
+Los contenedores de Docker corren aplicaciones aisladas del sistema.
+Sin embargo para persistir data es necesario usar Docker volumes o bind mounts.
 
-A docker container runs the software stack defined in an image. Images are made of a set of read-only layers that work on a file system called the Union File System. When we start a new container, Docker adds a read-write layer on the top of the image layers allowing the container to run as though on a standard Linux file system.
+### Como manejar Volumes
 
-### Managing Volumes
+Docker permite manejar volumenes, los cuales podemos nombrar o usar de manera anonima.
 
-Docker allows us to manage volumes via the docker volume set of commands. We can give a volume an explicit name (named volumes), or allow Docker to generate a random one (anonymous volumes).
+#### Creando Volumenes
 
-#### Creating Volumes
-
-We can create a volume by using the create subcommand and passing a name as an argument:
-
-```bash
+```bash title="Crear Volumen"
 docker volume create data_volume
 data_volume
 ```
 
+## Tambien podemos usar el Python SDK
 
-# Python SDK
+```bash title="Install Docker"
+pip install docker
+```
+
+Los componentes clásicos de Docker se pueden dividir en dos categorías principales: **Docker Engine** (el núcleo) y **herramientas del ecosistema**.
+
+## Componentes Fundamentales del Docker Engine
+
+### **Docker Daemon (`dockerd`)**
+
+- **Qué es**: El servicio background que gestiona los contenedores
+- **Función**: Escucha peticiones de la API de Docker y gestiona imágenes, contenedores, redes y volúmenes
+- **Ejemplo**: `dockerd --log-level=debug`
+
+### **Docker Client (`docker`)**
+
+- **Qué es**: La CLI que los usuarios usan para interactuar con el Daemon
+- **Función**: Envía comandos al Daemon y muestra los resultados
+- **Ejemplo**: `docker run hello-world`
+
+### **Docker API**
+
+- **Qué es**: API REST que permite la comunicación entre Client y Daemon
+- **Función**: Expone endpoints para gestionar todos los recursos de Docker
+- **Ejemplo**: `curl --unix-socket /var/run/docker.sock http://v1.42/containers/json`
+
+### **Containerd**
+
+- **Qué es**: Runtime de containers que Docker utiliza internamente
+- **Función**: Gestiona el ciclo de vida completo de los contenedores
+- **Relación**: Docker Daemon → containerd → runc
+
+### **Runc**
+
+- **Qué es**: Herramienta CLI para crear y ejecutar containers según OCI
+- **Función**: Implementación de bajo nivel que realmente ejecuta los contenedores
+- **Estándar**: Cumple con Open Container Initiative (OCI)
+
+## Componentes de Almacenamiento y Empaquetado
+
+### **Docker Images**
+
+- **Qué es**: Plantillas de solo lectura para crear contenedores
+- **Ejemplo**: `ubuntu:20.04`, `nginx:alpine`
+- **Estructura**: Capas unidas mediante Union File System
+
+### **Dockerfile**
+
+- **Qué es**: Archivo de texto con instrucciones para construir imágenes
+- **Ejemplo**:
+```dockerfile
+FROM python:3.9-slim
+WORKDIR /app
+COPY . .
+RUN pip install -r requirements.txt
+CMD ["python", "app.py"]
+```
+
+### **Docker Registry**
+
+- **Qué es**: Repositorio para almacenar y distribuir imágenes
+- **Público**: Docker Hub (`docker.io`)
+- **Privado**: Docker Trusted Registry, Amazon ECR, Google Container Registry
+
+### **Docker Hub**
+
+- **Qué es**: Registry público por defecto de Docker
+- **Función**: Compartir y descubrir imágenes oficiales y de comunidad
+- **URL**: https://hub.docker.com
+
+## Componentes de Networking
+
+### **Docker Networking**
+
+- **Tipos**:
+  - `bridge`: Red por defecto para contenedores aislados
+  - `host`: Comparte el network stack del host
+  - `overlay`: Para comunicación entre múltiples hosts (Docker Swarm)
+  - `macvlan`: Asigna dirección MAC a contenedores
+
+### **DNS embebido**
+
+- **Qué es**: Resolución DNS automática entre contenedores
+- **Función**: Los contenedores pueden resolverse por nombre de servicio
+
+## Componentes de Persistencia
+
+### **Docker Volumes**
+
+- **Qué es**: Mecanismo preferido para persistir datos
+- **Ventaja**: Gestionado por Docker, independiente del filesystem del host
+- **Ejemplo**: `docker volume create my_volume`
+
+### **Bind Mounts**
+
+- **Qué es**: Montar directorios específicos del host en contenedores
+- **Uso**: Desarrollo y configuraciones específicas
+- **Ejemplo**: `-v /home/user/app:/app`
+
+### **tmpfs mounts**
+- **Qué es**: Montajes en memoria RAM
+- **Uso**: Datos temporales que no deben persistir
+- **Ejemplo**: `--tmpfs /tmp`
+
+## Herramientas
+
+### **Docker Compose**
+
+- **Qué es**: Herramienta para definir y ejecutar aplicaciones multi-contenedor
+- **Archivo**: `docker-compose.yml`
+- **Uso**: Desarrollo local y testing
+
+### **Docker Swarm**
+
+- **Qué es**: Herramienta de orquestación nativa de Docker
+- **Función**: Clustering y gestión de servicios distribuidos
+- **Alternativa**: Kubernetes (más popular actualmente)
+
+### **Docker Machine**
+
+- **Qué es**: Herramienta para provisionar hosts Docker
+- **Uso**: Crear máquinas virtuales con Docker instalado
+- **Ejemplo**: `docker-machine create my-vm`
+
+## Ejemplo de Flujo de Trabajo Clásico
 
 ```bash
-pip install docker.
+# 1. Construir imagen desde Dockerfile
+docker build -t mi-app:1.0 .
+
+# 2. Subir imagen al registry
+docker tag mi-app:1.0 mi-registry.com/mi-app:1.0
+docker push mi-registry.com/mi-app:1.0
+
+# 3. Ejecutar contenedor
+docker run -d -p 80:5000 --name mi-contenedor mi-app:1.0
+
+# 4. Gestionar con Docker Compose
+docker-compose up -d
+
+# 5. Inspeccionar recursos
+docker ps
+docker logs mi-contenedor
+docker inspect mi-contenedor
 ```
+
+## Evolución Reciente
+
+Los componentes han evolucionado, pero estos son los **clásicos** que forman la base de Docker.
+
+- **Kubernetes** en lugar de Docker Swarm
+- **containerd** directamente sin Docker Daemon
+- **Podman** como alternativa a Docker Client
+
 
