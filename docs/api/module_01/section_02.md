@@ -10,20 +10,19 @@
 
 ### Descomposición eficaz de servicios
 
-Uno de los desafíos más importantes al diseñar microservicios es la descomposición de servicios. Debemos descomponer una plataforma en componentes débilmente acoplados, pero suficientemente independientes, con límites claramente definidos. 
+Uno de los desafíos más importantes al diseñar microservicios es la descomposición de servicios. Debemos descomponer una plataforma en componentes débilmente acoplados, pero suficientemente independientes, con límites claramente definidos. Esta parte es importantre ya que con el tiempo estos limites se transgreden, por lo cual, debes habilitar mecanismos que funcionen como cercas, que si bien no imposibilitan, dejan claro que han sido transgredido dichos limites.
 
 Se puede detectar un acoplamiento irrazonable entre los servicios si se observa que se cambia un servicio cada vez que se cambia otro. En tales situaciones, el contrato entre servicios no es resiliente o existen suficientes dependencias entre ambos componentes como para justificar su fusión. 
 
-No descomponer un sistema en microservicios independientes puede resultar en lo queusualmente llamamos **monolito**, una situación en la que se combinan todos los problemas de las arquitecturas monolíticas con todos los problemas de los microservicios, sin disfrutar de los beneficios de ninguno de ellos.
-
+No descomponer un sistema en microservicios independientes puede resultar en lo que usualmente llamamos **monolito**, una situación en la que se combinan todos los problemas de las arquitecturas monolíticas con todos los problemas de los microservicios, sin disfrutar de los beneficios de ninguno de ellos.
 
 
 ## Pruebas de integración de microservicios
 
 
-Usualmente los microservicios suelen ser más fáciles de probar y que sus conjuntos de pruebas suelen ejecutarse más rápido. 
+Usualmente los microservicios suelen ser más fáciles de probar, ya que sus conjuntos de pruebas suelen ejecutarse más rápido. Si no es así ya tenemos un red flag en nuestro microservicio/macroservicio.
 
-Las pruebas de integración de microservicios pueden ser significativamente más difíciles de ejecutar, especialmente cuando una sola transacción implica la colaboración entre varios microservicios. Cuando toda la aplicación se ejecuta dentro del mismo proceso, es bastante fácil probar la integración entre diferentes componentes, y la mayoría de las veces solo requerirá pruebas unitarias bien escritas. 
+Las pruebas de integración de microservicios pueden ser significativamente más difíciles de ejecutar, especialmente cuando una sola transacción implica la colaboración entre varios microservicios. Cuando toda la aplicación se ejecuta dentro del mismo proceso, es bastante fácil probar la integración entre diferentes componentes, y la mayoría de las veces "**solo**" requerirá pruebas unitarias bien escritas.
 
 En un contexto de microservicios, para probar la integración entre múltiples servicios, es necesario poder ejecutarlos todos con una configuración similar a la de su entorno de producción.
 
