@@ -1,7 +1,7 @@
 # Ejemplo de Multi Stage Build con Ubuntu
 
 
-A continuación, te proporciono un ejemplo actualizado de un Dockerfile multi-stage usando Ubuntu 24.04 como imagen base, con Python 3.11 y una aplicación Flask. Este ejemplo optimiza el tamaño de la imagen y el tiempo de construcción para pipelines de CI/CD.
+Dockerfile multi-stage usando Ubuntu 24.04 como imagen base, con Python 3.11 y una aplicación Flask. Este ejemplo optimiza el tamaño de la imagen y el tiempo de construcción para pipelines de CI/CD.
 
 ```docker title="Ejemplo de Docker" linenums="1"
 # Etapa de construcción
