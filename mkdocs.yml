@@ -1,11 +1,48 @@
 site_name: Learning Team Notes
+site_description: Un sitio para aprender
+theme:
+  name: material
+  features:
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+  palette:
+    scheme: slate
+    primary: indigo
+    accent: indigo
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - python
+    - typespec
+    - rust
+  collapse_navigation: True
+  locale: es
 nav:
   - Home: 'index.md'
+  - Diseño de APIs:
+    - "¿Qué es un API?": 'api/module_01/section_01.md'
+    - "Diseño de API": 'api/module_01/section_02.md'
+    - "Guías de Desarrollo": 'api/module_01/section_03.md'
+    - "OpenAPI": 'api/module_01/section_04.md'
+    - "Flujo de una REST API": 'api/module_02/section_01.md'
+    - "Flujo de una GraphQL API": 'api/module_02/section_02.md'
+#  - API Frameworks:
+#    - "Flask": ''
+#    - "Django": ''
+#    - "Angular": ''
+#    - "PHP": ''
+  - Patrones de Diseño:
+    - "Qué es un patrón de diseño": 'code/design_patterns_01.md'
+    - "Creacional": 'code/design_patterns_02.md'
+    - "Estructural": 'code/design_patterns_03.md'
+    - "De Comportamiento": 'code/design_patterns_04.md'
   - Docker:
     - Intro: 'docker/intro.md'
 plugins:
   - search
   - mermaid2
+  - glightbox
 extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js
@@ -14,4 +51,23 @@ markdown_extensions:
   - smarty
   - mdx_math
   - pymdownx.arithmatex
-  - pymdownx.highlight
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+#extra_css:
+#  - stylesheets/extra.css
+#extra_javascript:
+#  - javascripts/extra.js
+annotate:
+    python: [.s2]

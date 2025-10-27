@@ -58,7 +58,8 @@ run_docs:
 	$(DOCKER) run --rm -it \
 		--name $(CONTAINER_NAME_DOCS) \
 		-p $(PORT_DOCS):$(PORT_DOCS) \
-		-v $(PWD):/app \
+		-v $(PWD)/mkdocs.yml:/app/mkdocs.yml \
+		-v $(PWD)/docs:/app/docs \
 		$(IMAGE_NAME_DOCS)
 
 # Detiene y elimina el contenedor (si está en segundo plano)
