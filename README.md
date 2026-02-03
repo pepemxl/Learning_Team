@@ -1,4 +1,5 @@
-# Learning_Team
+# Learning Team
+
 Ejemplos de manejo de Flask con distintas tecnologías
 
 1. Docker
@@ -17,4 +18,4 @@ Ejemplos de manejo de Flask con distintas tecnologías
     - Flask Sessions
     - Flask Sqlalchemy
     - Flask Upload Files
-3. Swagger
+3. OpenAPI/Swagger
