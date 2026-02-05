@@ -7,8 +7,11 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/app
+      #- ./python_app:/app/python_app  # Solo monta el código Python
+      #- ./cpp_libs:/app/cpp_libs:ro   # Monta código fuente C++ como solo lectura
     environment:
       - PYTHONUNBUFFERED=1
       - USER_ID=${UID:-1000}
+      - LD_LIBRARY_PATH=/usr/local/lib  # Asegurar que encuentra las librerías
     working_dir: /app
     user: "${UID:-1000}:${GID:-1000}"

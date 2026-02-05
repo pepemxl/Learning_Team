@@ -1,9 +1,28 @@
-import ctypes
-import sys
+#import ctypes
+#import sys
 
 # Cargar ambas librerías dinámicas
-math_lib = ctypes.CDLL('libmath_operations.so')
-string_lib = ctypes.CDLL('libstring_operations.so')
+#math_lib = ctypes.CDLL('libmath_operations.so')
+#string_lib = ctypes.CDLL('libstring_operations.so')
+import ctypes
+import os
+#from ctypes.util import find_library
+
+# Configurar la ruta de búsqueda de librerías
+os.environ['LD_LIBRARY_PATH'] = '/usr/local/lib:' + os.environ.get('LD_LIBRARY_PATH', '')
+
+# Intentar cargar las librerías de múltiples ubicaciones posibles
+try:
+    math_lib = ctypes.CDLL('math_operations.so')
+except OSError:
+    # Si falla, intentar con la ruta completa
+    math_lib = ctypes.CDLL('/usr/local/lib/math_operations.so')
+
+try:
+    string_lib = ctypes.CDLL('string_operations.so')
+except OSError:
+    string_lib = ctypes.CDLL('/usr/local/lib/libstring_operations.so')
+
 
 # Definir los tipos de argumentos y retorno para las funciones de math_lib
 math_lib.add.argtypes = [ctypes.c_int, ctypes.c_int]
